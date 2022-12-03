@@ -11,7 +11,7 @@ import (
 	"github.com/platinummonkey/go-utils/atomic"
 )
 
-var multiplier = NewAtomic[float64](1.0)
+var multiplier = atomic.NewAtomic(1.0)
 
 func init() {
 	for i, arg := range os.Args[1:] {
