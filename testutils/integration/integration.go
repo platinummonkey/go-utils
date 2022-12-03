@@ -41,7 +41,7 @@ func Check(t *testing.T) {
 	}
 }
 
-// CheckBenchmark check skips the current benchmarck testing context if ShouldRunBenchmark is false. If `-v` is not
+// CheckBenchmark check skips the current benchmark testing context if ShouldRunBenchmark is false. If `-v` is not
 // enabled for the benchmark run, it won't be obvious the benchmark test was skipped.
 func CheckBenchmark(b *testing.B) {
 	if !ShouldRunBenchmark {

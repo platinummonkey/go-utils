@@ -1,6 +1,7 @@
 package slice_functions
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -9,11 +10,11 @@ import (
 func TestGroupBy(t *testing.T) {
 	a := []string{"a", "abc", "de", "hjk", "b", "l"}
 
-	lngth := GroupBy(a, func(s string) (int, string) { return len(s), s })
-	assert.Equal(t, New("a", "b", "l"), lngth[1])
-	assert.Equal(t, New("de"), lngth[2])
-	assert.Equal(t, New("abc", "hjk"), lngth[3])
-	assert.Equal(t, 0, len(lngth[4]))
+	l := GroupBy(a, func(s string) (int, string) { return len(s), s })
+	assert.Equal(t, New("a", "b", "l"), l[1])
+	assert.Equal(t, New("de"), l[2])
+	assert.Equal(t, New("abc", "hjk"), l[3])
+	assert.Equal(t, 0, len(l[4]))
 }
 
 func TestMapBy(t *testing.T) {
@@ -29,23 +30,23 @@ func TestMapBy(t *testing.T) {
 func TestMap(t *testing.T) {
 	a := []string{"a", "abc", "de", "hjk", "b", "l"}
 
-	lngth := Map(a, func(s string) int { return len(s) })
-	assert.Equal(t, New(1, 3, 2, 3, 1, 1), lngth)
+	l := Map(a, func(s string) int { return len(s) })
+	assert.Equal(t, New(1, 3, 2, 3, 1, 1), l)
 }
 
 func TestFlatMap(t *testing.T) {
 	a := []string{"a", "abc", "de", "hjk", "b", "l"}
 
-	lngth := FlatMap(a, func(s string) []int { return New(len(s), 0) })
-	assert.Equal(t, New(1, 0, 3, 0, 2, 0, 3, 0, 1, 0, 1, 0), lngth)
+	l := FlatMap(a, func(s string) []int { return New(len(s), 0) })
+	assert.Equal(t, New(1, 0, 3, 0, 2, 0, 3, 0, 1, 0, 1, 0), l)
 }
 
 func TestFlatTry(t *testing.T) {
 	a := []string{"a", "abc", "de", "hjk", "b", "l"}
 
-	lngth, err := FlatMapTry(a, func(s string) ([]int, error) { return New(len(s), 0), nil })
+	l, err := FlatMapTry(a, func(s string) ([]int, error) { return New(len(s), 0), nil })
 	assert.NoError(t, err)
-	assert.Equal(t, New(1, 0, 3, 0, 2, 0, 3, 0, 1, 0, 1, 0), lngth)
+	assert.Equal(t, New(1, 0, 3, 0, 2, 0, 3, 0, 1, 0, 1, 0), l)
 
 	_, err = FlatMapTry(a, func(s string) ([]int, error) { return New(len(s), 0), errors.New("some error") })
 	assert.Error(t, err)

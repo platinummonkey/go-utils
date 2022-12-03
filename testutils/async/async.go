@@ -11,31 +11,31 @@ import (
 	"github.com/platinummonkey/go-utils/atomic"
 )
 
-var multipler = NewAtomic[float64](1.0)
+var multiplier = NewAtomic[float64](1.0)
 
 func init() {
 	for i, arg := range os.Args[1:] {
 		if arg == "asyncWaitMultiplier" {
 			newMultiplier, err := strconv.ParseFloat(os.Args[i+1], 32)
 			if err == nil {
-				SetTimingMultipler(newMultiplier)
+				SetTimingMultiplier(newMultiplier)
 			}
 		}
 	}
 }
 
-// SetTimingMultipler will set the current timing multiplier.
+// SetTimingMultiplier will set the current timing multiplier.
 // Normally this would be set through the above args, however, for
 // programmatic access this exists.
-func SetTimingMultipler(m float64) {
+func SetTimingMultiplier(m float64) {
 	if m > 0.0 {
-		multipler.Store(m)
+		multiplier.Store(m)
 	}
 }
 
 // GetTimingMultiplier will return the current timing multiplier
 func GetTimingMultiplier() float64 {
-	return multipler.Load()
+	return multiplier.Load()
 }
 
 // ConditionalWait is a test utility to wait for a specific async condition to occur within a time range.
