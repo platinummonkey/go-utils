@@ -16,6 +16,6 @@ func TestAtomic(t *testing.T) {
 	require.True(t, testBool.Swap(false))
 	require.False(t, testBool.Load())
 
-	require.False(testBool.CompareAndSwap(false, false))
-	require.True(testBool.CompareAndSwap(false, true))
+	require.False(t, testBool.CompareAndSwap(false, false))
+	require.True(t, testBool.CompareAndSwap(false, true))
 }
