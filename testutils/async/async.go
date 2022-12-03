@@ -7,6 +7,8 @@ import (
 	"runtime"
 	"strconv"
 	"time"
+
+	"github.com/platinummonkey/go-utils/atomic"
 )
 
 var multipler = NewAtomic[float64](1.0)
