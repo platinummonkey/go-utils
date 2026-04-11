@@ -11,14 +11,14 @@ jobs:
   test:
     strategy:
       matrix:
-        go: [1.19]
+        go: ['1.24']
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff  # v5
         with:
           go-version: ${{ matrix.go }}
 
@@ -30,29 +30,19 @@ jobs:
   lint:
     strategy:
       matrix:
-        go: [1.19]
+        go: ['1.24']
         os: [ubuntu-latest]
     name: lint
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff  # v5
         with:
           go-version: ${{ matrix.go }}
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@3a919529898de77ec3da873e3063ca4b10e7f5cc  # v3
         with:
-          # Required: the version of golangci-lint is required and must be specified without patch version: we always use the latest patch version.
           version: v1.50.1
-          # Optional: working directory, useful for monorepos
-          # working-directory: somedir
-
-          # Optional: golangci-lint command line arguments.
-          # args: --issues-exit-code=0
           args: --timeout=3m
-          # we have installed go already
           skip-go-installation: true
-
-          # Optional: show only new issues if it's a pull request. The default value is `false`.
-          # only-new-issues: true

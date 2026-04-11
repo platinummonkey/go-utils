@@ -67,7 +67,7 @@ func ConditionalWait(
 		}
 
 		if len(args) == 0 {
-			return fmt.Errorf(errorMsg)
+			return errors.New(errorMsg)
 		}
 		return fmt.Errorf(errorMsg, args...)
 	}
